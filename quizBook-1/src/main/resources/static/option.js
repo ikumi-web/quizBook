@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const sortOptionButton = document.getElementById('sortOptionButton');
 
 	// 次に使用する選択肢番号
-	let nextOptionNumber = 0;
+	let optionCounter = 0;
 
 	// 利用可能な番号を管理するセット
 	const availableNumbers = new Set();
@@ -23,12 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			return number;
 		} else {
 			//前置インクリメントじゃないとダメ
-			return ++nextOptionNumber;
+			return ++optionCounter;
 		}
 	}
 
 	// 選択肢を追加する関数
 	function addOption() {
+		
+		const divElements = optionsContainer.querySelectorAll('div');
+		optionCounter = divElements.length;
+		
 		const optionNumber = getNextOptionNumber();
 
 		const optionDiv = document.createElement('div');
@@ -40,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		const optionInput = document.createElement('input');
 		optionInput.type = 'text';
-		optionInput.name = `option-${optionNumber}`;
+		optionInput.name = `options[${optionNumber-1}].optionText`
 		optionInput.placeholder = '選択肢を入力';
 
 		const removeButton = document.createElement('button');
@@ -48,10 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		removeButton.type = 'button';
 		removeButton.classList.add('removeButton');
 		removeButton.addEventListener('click', () => removeOption(optionDiv.id, optionNumber));
+		
+		const checkBox = document.createElement('input');
+		checkBox.type = 'checkbox';
+		checkBox.name = `options[${optionNumber-1}].correct`;
 
 		optionDiv.appendChild(optionLabel);
 		optionDiv.appendChild(optionInput);
 		optionDiv.appendChild(removeButton);
+		optionDiv.appendChild(checkBox);
 
 		optionsContainer.appendChild(optionDiv);
 	}
