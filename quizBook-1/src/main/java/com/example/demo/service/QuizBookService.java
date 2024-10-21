@@ -18,9 +18,9 @@ public interface QuizBookService {
 	/** クイズの正解不正解を判定します */
 	Boolean checkQuiz(Integer id,Boolean myAnswer);
 	/**クイズを登録します*/
-	void insertQuiz(QuizBookEntity quiz);
+	void insert(QuizBookEntity quiz);
 	/** クイズを更新します */
-	void updateQuiz(QuizBookEntity quiz);
+	void update(QuizBookEntity quiz);
 	/** クイズを削除します */
 	void deleteQuizById(Integer id);
 

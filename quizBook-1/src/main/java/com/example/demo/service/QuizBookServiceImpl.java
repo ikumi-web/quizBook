@@ -36,12 +36,12 @@ public class QuizBookServiceImpl implements QuizBookService{
 		return null;
 	}
 	@Override
-	public void insertQuiz(QuizBookEntity quiz) {
+	public void insert(QuizBookEntity quiz) {
 		quizBookRepository.save(quiz);
 		
 	}
 	@Override
-	public void updateQuiz(QuizBookEntity quiz) {
+	public void update(QuizBookEntity quiz) {
 		quizBookRepository.save(quiz);
 	}
 	@Override

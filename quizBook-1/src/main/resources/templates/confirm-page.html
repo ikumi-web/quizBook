@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>確認ページ</title>
+</head>
+
+<body>
+	<div th:text="${msg}" style="color: cadetblue;margin: 10px;"></div>
+	<div style="display: flex;">
+		<form th:action="@{/quizbook/update-page/{id}(id=${entity.id})}" method="get" style="margin: 10px;">
+			<button type="submit">登録内容修正</button>
+		</form>
+		<form th:action="@{/quizbook/back}" style="margin: 10px;">
+			<button type="submit">ホームに戻る</button>
+		</form>
+	</div>
+	<hr>
+
+	<div th:object="${entity}">
+		<h3>問題：</h3>
+		<pre th:text="*{question}"></pre>
+
+		<h3>コード：</h3>
+		<pre th:text="*{code}"></pre>
+		<h3>選択肢：</h3>
+		<div th:each="option : *{options}">
+			<span th:text="${option.id}"></span>
+			<span th:text="${option.optionText}"></span>
+			<span th:text="${option.correct}? '正解':'不正解'"></span>
+		</div>
+		<h3>解説</h3>
+		<pre th:text="*{explain}"></pre>
+
+	</div>
+
+
+
+</body>
+
+</html>

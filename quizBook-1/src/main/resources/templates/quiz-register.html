@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<script th:src="@{/option.js}" defer></script>
-<title th:text="${title}">タイトル</title>
+	<meta charset="UTF-8">
+	<script th:src="@{/option.js}" defer></script>
+	<title th:text="${title}">タイトル</title>
 </head>
+
 <body>
 	<h3 th:text="${title}">タイトル</h3>
 	<!--/* ▼▼▼Form▼▼▼ */-->
@@ -20,18 +22,21 @@
 		<textarea rows="5" cols="50" th:field="*{code}" placeholder="コードを入力"></textarea>
 		<br>
 		<div th:if="${#fields.hasErrors('code')}" th:errors="*{code}" style="color: red;"></div>
-		
+
 		<div id="optionsContainer">
-            <!-- 選択肢がここに追加されます -->            
-        </div>
-        <div th:unless="*{newQuiz}==true" th:each="option:*{options}">
-			<span th:text="${option.id}"></span>
-			<input type="text" th:field="*{option.optionText}">
-			<input type="checkbox" th:field="*{option.isCorrect}">
+			<!-- 選択肢がここに追加されます -->
+			<div th:unless="*{newQuiz}==true" th:each="option,iterStat:*{options}">
+				<span th:text="'選択肢 '+${iterStat.index+1}+':'"></span>
+				<input type="hidden" th:value="${option.id}" th:name="'options[' + ${iterStat.index} + '].id'">
+				<input type="text" th:value="${option.optionText}"
+					th:name="'options[' + ${iterStat.index} + '].optionText'">
+				<input type="checkbox" th:checked="${option.isCorrect}" th:value="${option.isCorrect}"
+					th:name="'options[' + ${iterStat.index} + '].isCorrect'">
+			</div>
 		</div>
-		</div>
-        <button type="button" id="addOptionButton">選択肢を追加</button>
-        <button type="button" id="sortOptionButton">選択肢を昇順に整理</button>
+
+		<button type="button" id="addOptionButton">選択肢を追加</button>
+		<button type="button" id="sortOptionButton">選択肢を昇順に整理</button>
 		<br>
 		<div th:if="${#fields.hasErrors('options')}" th:errors="*{options}" style="color: red;"></div>
 		<label>解説：</label><br>
@@ -46,4 +51,5 @@
 	</form>
 
 </body>
+
 </html>
