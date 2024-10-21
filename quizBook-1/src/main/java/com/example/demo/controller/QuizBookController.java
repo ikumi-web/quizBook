@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.QuizBookEntity;
+import com.example.demo.form.QuizBookForm;
 import com.example.demo.service.QuizBookService;
 
 @Controller
@@ -27,5 +29,17 @@ public class QuizBookController {
 		model.addAttribute("list",list);
 		model.addAttribute("title","JavaSilver問題集");
 		return "java-silver";
+	}
+	@GetMapping("/quiz-register")
+	public String toRegister(Model model) {
+		QuizBookForm quizBookForm = new QuizBookForm();
+		quizBookForm.setNewQuiz(true);
+		model.addAttribute("quizBookForm",quizBookForm);
+		return "quiz-register";
+	}
+	@PostMapping("/back")
+	public String backButton() {
+		return "entry";
+		
 	}
 }
