@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">タイトル</title>
+</head>
+<body>
+	<a th:href="@{/quizbook/play}">一問一答モード</a><br>
+	<a th:href="@{/quizbook/twenty-test}">20問連続モード</a><br>
+	<a th:href="@{/quizbook/test}">模擬試験モード</a><br>
+	<hr>
+	
+	<p th:if="${#lists.isEmpty(list)}">登録されているクイズはありません</p>
+	<table border="1" th:unless="${#lists.isEmpty(list)}" style="table-layout: fixed;">
+			<tr>
+				<th>ID</th>
+				<th>内容</th>
+				<th>解答</th>
+				<th>作成者</th>
+				<th>編集</th>
+				<th>削除</th>
+			</tr>
+			<tr th:each="obj:${list}" align="center">
+				<td th:text="${obj.id}"></td>
+				<td th:text="${obj.question}" align="left"></td>
+
+				<!--/*編集ボタン*/-->
+				<td>
+					<form method="get" th:action="@{/quizbook/update/{id}(id=${obj.id})}">
+						<input type="submit" value="編集">
+					</form>
+				</td>
+				<td>
+					<form method="post" th:action="@{/quiz/delete}">
+						<input type="hidden" name="id" th:value="${obj.id}">
+						<input type="submit" value="削除">
+					</form>
+				</td>
+			</tr>
+		</table>
+</body>
+</html>
