@@ -12,7 +12,7 @@ public interface QuizBookService {
 	/** クイズ情報をidをキーに取得します　*/
 	Optional<QuizBookEntity> selectOneById(Integer id);
 	/** クイズ情報をランダムで1件取得します　*/
-	Optional<QuizBookEntity> selectOneRamdomQuiz();
+	Optional<QuizBookEntity> selectRamdomQuiz();
 	
 	
 	/** クイズの正解不正解を判定します */

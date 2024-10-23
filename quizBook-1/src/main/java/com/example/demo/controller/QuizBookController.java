@@ -90,12 +90,13 @@ public class QuizBookController {
 	//	}
 
 	@PostMapping("/update-page")
-	public String toUpdatePage(@RequestParam("id") Integer id, Model model) {
+	public String toUpdatePage(@RequestParam Integer id,@RequestParam(required = false) Integer listId,Model model) {
 		Optional<QuizBookEntity> OptEntity = quizBookService.selectOneById(id);
 		if (OptEntity.isPresent()) {
 			QuizBookEntity entity = OptEntity.get();
 			QuizBookForm form = makeForm(entity);
 			form.setNewQuiz(false);
+			model.addAttribute("listId", listId);
 			model.addAttribute("quizBookForm", form);
 			model.addAttribute("title", "更新用フォーム");
 			return "quiz-register";
@@ -106,13 +107,33 @@ public class QuizBookController {
 	}
 
 	@PostMapping("/update")
-	public String update(QuizBookForm form, Model model) {
+	public String update(QuizBookForm form, Model model,@RequestParam(required = false) Integer listId) {
 		QuizBookEntity entity = makeEntity(form);
 		quizBookService.update(entity);
+		model.addAttribute("listId", listId);
 		model.addAttribute("entity", entity);
 		model.addAttribute("msg", "更新完了しました。");
 		return "confirm-page";
 
+	}
+	@PostMapping("/confirm-page")
+	public String confirm(@RequestParam Integer id,@RequestParam(required = false) Integer listId,Model model) {
+		Optional<QuizBookEntity> OptEntity = quizBookService.selectOneById(id);
+		if(!OptEntity.isPresent()) {
+			return "forward:/quizbook/java-silver";
+		}
+		QuizBookEntity entity = OptEntity.get();
+		model.addAttribute("entity",entity);
+		model.addAttribute("listId",listId);
+		return "confirm-page";
+		
+	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam Integer id) {
+		quizBookService.deleteQuizById(id);
+		return "forward:/quizbook/java-silver";
+		
 	}
 
 	//▼▼▼▼▼▼▼▼EntityからFormへの変換▼▼▼▼▼▼▼▼
