@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const optionsContainer = document.getElementById('optionsContainer');
 	const addOptionButton = document.getElementById('addOptionButton');
 	const sortOptionButton = document.getElementById('sortOptionButton');
+	const preRemoveButton = document.querySelectorAll('.preRemoveButton');
+	
+	
 
 	// 次に使用する選択肢番号
 	let optionCounter = 0;
@@ -75,6 +78,20 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 	
+	function preRemoveOption(event) {
+		//一番近い親要素のクラスを取得している。
+		const optionToRemove = event.target.closest('.option');
+        if (optionToRemove) {
+            optionToRemove.remove();
+			//親クラスからidを取り出して文字列と数字に分けて直近で
+			//削除された選択肢番号を渡している。
+			const divId = optionToRemove.id;
+			const optionNumber = parseInt(divId.split('-')[1]);
+			// 削除された番号を利用可能にする
+			availableNumbers.add(optionNumber);
+		}
+	}
+		
 	function sortOption(){
         const items = Array.from(optionsContainer.children);
 
@@ -89,9 +106,19 @@ document.addEventListener('DOMContentLoaded', () => {
         items.forEach(item =>{optionsContainer.appendChild(item)});
     }
     
+    //もともとある選択肢の削除ボタンクラスを全て取り出して、その全てのボタンに
+    //preRemoveOptionを付与している。
+    preRemoveButton.forEach(button=>{button.addEventListener('click',preRemoveOption)});
+    
+    
     // 「選択肢を昇順に整理」ボタンがクリックされた時に選択肢を昇順にソート
     sortOptionButton.addEventListener('click',sortOption);
 
 	// 「選択肢を追加」ボタンがクリックされたときに新しい選択肢を追加
 	addOptionButton.addEventListener('click', addOption);
+	
+	
+	
+	
+	
 });

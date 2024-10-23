@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.OptionEntity;
 import com.example.demo.entity.QuizBookEntity;
 import com.example.demo.form.OptionForm;
 import com.example.demo.form.QuizBookForm;
+import com.example.demo.service.OptionService;
 import com.example.demo.service.QuizBookService;
 
 @Controller
@@ -22,6 +23,8 @@ public class QuizBookController {
 
 	@Autowired
 	QuizBookService quizBookService;
+	@Autowired
+	OptionService optionService;
 
 	@GetMapping("/entry")
 	public String entry(Model model) {
@@ -42,7 +45,7 @@ public class QuizBookController {
 		QuizBookForm quizBookForm = new QuizBookForm();
 		quizBookForm.setNewQuiz(true);
 		model.addAttribute("quizBookForm", quizBookForm);
-		model.addAttribute("title","登録用フォーム");
+		model.addAttribute("title", "登録用フォーム");
 		return "quiz-register";
 	}
 
@@ -53,48 +56,86 @@ public class QuizBookController {
 	}
 
 	@PostMapping("/insert")
-	public String insert(QuizBookForm form,Model model) {
+	public String insert(QuizBookForm form, Model model) {
 		QuizBookEntity entity = new QuizBookEntity();
 		entity.setQuestion(form.getQuestion());
 		entity.setCode(form.getCode());
 		entity.setExplain(form.getExplain());
-		for(OptionForm optionForm : form.getOptions()) {
+		for (OptionForm optionForm : form.getOptions()) {
 			OptionEntity optionEntity = new OptionEntity();
 			optionEntity.setOptionText(optionForm.getOptionText());
 			optionEntity.setCorrect(optionForm.isCorrect());
 			entity.addOption(optionEntity);
 		}
 		quizBookService.insert(entity);
-		model.addAttribute("msg","登録完了しました");
-		model.addAttribute("entity",entity);
+		model.addAttribute("msg", "登録完了しました");
+		model.addAttribute("entity", entity);
 		return "confirm-page";
 	}
-	@GetMapping("/update-page/{id}")
-	public String toUpdatePage(@PathVariable("id")Integer id,Model model) {
+	//＠PathVariableでidを受け取るパターン
+	//	@GetMapping("/update-page/{id}")
+	//	public String toUpdatePage(@PathVariable("id") Integer id, Model model) {
+	//		Optional<QuizBookEntity> OptEntity = quizBookService.selectOneById(id);
+	//		if (OptEntity.isPresent()) {
+	//			QuizBookEntity entity = OptEntity.get();
+	//			QuizBookForm form = makeForm(entity);
+	//			form.setNewQuiz(false);
+	//			model.addAttribute("quizBookForm", form);
+	//			model.addAttribute("title", "更新用フォーム");
+	//			return "quiz-register";
+	//		}
+	//		model.addAttribute("msg", "クイズのIDが存在しませんでした。");
+	//		return "confirm-page";
+	//
+	//	}
+
+	@PostMapping("/update-page")
+	public String toUpdatePage(@RequestParam Integer id,@RequestParam(required = false) Integer listId,Model model) {
 		Optional<QuizBookEntity> OptEntity = quizBookService.selectOneById(id);
-		if(OptEntity.isPresent()) {
+		if (OptEntity.isPresent()) {
 			QuizBookEntity entity = OptEntity.get();
 			QuizBookForm form = makeForm(entity);
 			form.setNewQuiz(false);
-			model.addAttribute("quizBookForm",form);
-			model.addAttribute("title","更新用フォーム");
+			model.addAttribute("listId", listId);
+			model.addAttribute("quizBookForm", form);
+			model.addAttribute("title", "更新用フォーム");
 			return "quiz-register";
 		}
-		model.addAttribute("msg","クイズのIDが存在しませんでした。");
+		model.addAttribute("msg", "クイズのIDが存在しませんでした。");
 		return "confirm-page";
-		
+
 	}
+
 	@PostMapping("/update")
-	public String update(QuizBookForm form,Model model) {
+	public String update(QuizBookForm form, Model model,@RequestParam(required = false) Integer listId) {
 		QuizBookEntity entity = makeEntity(form);
 		quizBookService.update(entity);
+		model.addAttribute("listId", listId);
+		model.addAttribute("entity", entity);
+		model.addAttribute("msg", "更新完了しました。");
+		return "confirm-page";
+
+	}
+	@PostMapping("/confirm-page")
+	public String confirm(@RequestParam Integer id,@RequestParam(required = false) Integer listId,Model model) {
+		Optional<QuizBookEntity> OptEntity = quizBookService.selectOneById(id);
+		if(!OptEntity.isPresent()) {
+			return "forward:/quizbook/java-silver";
+		}
+		QuizBookEntity entity = OptEntity.get();
 		model.addAttribute("entity",entity);
-		model.addAttribute("msg","更新完了しました。");
+		model.addAttribute("listId",listId);
 		return "confirm-page";
 		
 	}
 	
-	
+	@GetMapping("/delete")
+	public String delete(@RequestParam Integer id) {
+		quizBookService.deleteQuizById(id);
+		return "forward:/quizbook/java-silver";
+		
+	}
+
 	//▼▼▼▼▼▼▼▼EntityからFormへの変換▼▼▼▼▼▼▼▼
 	public QuizBookForm makeForm(QuizBookEntity entity) {
 		QuizBookForm form = new QuizBookForm();
@@ -102,7 +143,7 @@ public class QuizBookController {
 		form.setQuestion(entity.getQuestion());
 		form.setCode(entity.getCode());
 		form.setExplain(entity.getExplain());
-		for(OptionEntity optionEntity :entity.getOptions()) {
+		for (OptionEntity optionEntity : entity.getOptions()) {
 			OptionForm optionForm = new OptionForm();
 			optionForm.setId(optionEntity.getId());
 			optionForm.setOptionText(optionEntity.getOptionText());
@@ -110,8 +151,9 @@ public class QuizBookController {
 			form.addOption(optionForm);
 		}
 		return form;
-		
+
 	}
+
 	//▼▼▼▼▼▼▼▼FormからEntityへの変換▼▼▼▼▼▼▼▼
 	public QuizBookEntity makeEntity(QuizBookForm form) {
 		QuizBookEntity entity = new QuizBookEntity();
@@ -119,7 +161,7 @@ public class QuizBookController {
 		entity.setQuestion(form.getQuestion());
 		entity.setCode(form.getCode());
 		entity.setExplain(form.getExplain());
-		for(OptionForm optionForm :form.getOptions()) {
+		for (OptionForm optionForm : form.getOptions()) {
 			OptionEntity optionEntity = new OptionEntity();
 			optionEntity.setId(optionForm.getId());
 			optionEntity.setOptionText(optionForm.getOptionText());
@@ -127,8 +169,7 @@ public class QuizBookController {
 			entity.addOption(optionEntity);
 		}
 		return entity;
-		
+
 	}
-	
-	
+
 }

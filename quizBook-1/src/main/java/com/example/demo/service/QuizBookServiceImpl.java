@@ -25,9 +25,8 @@ public class QuizBookServiceImpl implements QuizBookService{
 	}
 
 	@Override
-	public Optional<QuizBookEntity> selectOneRamdomQuiz() {
-		//★実装してません。
-		return Optional.empty();
+	public Optional<QuizBookEntity> selectRamdomQuiz() {
+		return quizBookRepository.findByRandomId();
 	}
 
 	@Override

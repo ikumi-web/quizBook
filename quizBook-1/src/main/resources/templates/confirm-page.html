@@ -7,32 +7,44 @@
 </head>
 
 <body>
-	<div th:text="${msg}" style="color: cadetblue;margin: 10px;"></div>
-	<div style="display: flex;">
-		<form th:action="@{/quizbook/update-page/{id}(id=${entity.id})}" method="get" style="margin: 10px;">
-			<button type="submit">登録内容修正</button>
-		</form>
-		<form th:action="@{/quizbook/back}" style="margin: 10px;">
-			<button type="submit">ホームに戻る</button>
-		</form>
-	</div>
-	<hr>
-
-	<div th:object="${entity}">
-		<h3>問題：</h3>
-		<pre th:text="*{question}"></pre>
-
-		<h3>コード：</h3>
-		<pre th:text="*{code}"></pre>
-		<h3>選択肢：</h3>
-		<div th:each="option : *{options}">
-			<span th:text="${option.id}"></span>
-			<span th:text="${option.optionText}"></span>
-			<span th:text="${option.correct}? '正解':'不正解'"></span>
+	<div  class="mainContainer" style="margin: 20px;width: 80%;">
+		<div th:text="${msg}" style="color: cadetblue;"></div>
+		<div class="buttonContainer" style="display: flex;">
+			<!--		<form th:action="@{/quizbook/update-page/{id}(id=${entity.id})}" method="get" style="margin: 10px;">-->
+			<!--			<button type="submit">登録内容修正</button>-->
+			<!--		</form>-->
+			<form th:action="@{/quizbook/update-page}" method="post" style="margin: 10px 10px 10px 0;">
+				<input th:if="${listId != null}" type="hidden" name="listId" th:value="${listId}">
+				<input type="hidden" th:value="${entity.id}" name="id">
+				<button type="submit">登録内容修正</button>
+			</form>
+			<form th:action="@{/quizbook/java-silver}" method="get" style="margin: 10px;">
+				<button >Java-Silver問題一覧</button>
+			</form>
+			
+			<form th:action="@{/quizbook/back}" method="post" style="margin: 10px;">
+				<button type="submit">ホームに戻る</button>
+			</form>
 		</div>
-		<h3>解説</h3>
-		<pre th:text="*{explain}"></pre>
+		<hr>
 
+		<h3 th:if="${listId != null}" th:text="'List No.'+${listId}"></h3>
+		<div th:object="${entity}">
+			<h3>問題：</h3>
+			<p th:text="*{question}"></p>
+
+			<h3>コード：</h3>
+			<pre th:text="*{code}"></pre>
+			<h3>選択肢：</h3>
+			<div th:each="option,state : *{options}">
+				<span th:text="'選択肢'+${state.index+1}+'：'"></span>
+				<span th:text="${option.optionText}"></span>
+				<span th:text="${option.correct}? '正解':'不正解'"></span>
+			</div>
+			<h3>解説</h3>
+			<p th:text="*{explain}"></p>
+
+		</div>
 	</div>
 
 
