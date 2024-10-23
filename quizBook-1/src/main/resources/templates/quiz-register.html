@@ -9,9 +9,12 @@
 
 <body>
 	<h3 th:text="${title}">タイトル</h3>
+	
 	<!--/* ▼▼▼Form▼▼▼ */-->
 	<form method="post" th:action="${quizBookForm.newQuiz}? @{/quizbook/insert}:@{/quizbook/update}"
 		th:object="${quizBookForm}">
+		
+		
 
 		<label>問題文：</label><br>
 		<textarea rows="5" cols="50" th:field="*{question}" placeholder="問題文を入力"></textarea>
@@ -25,13 +28,13 @@
 
 		<div id="optionsContainer">
 			<!-- 選択肢がここに追加されます -->
-			<div th:unless="*{newQuiz}==true" th:each="option,iterStat:*{options}">
+			<div th:if="*{newQuiz}==false" th:each="option,iterStat:*{options}">
 				<span th:text="'選択肢 '+${iterStat.index+1}+':'"></span>
 				<input type="hidden" th:value="${option.id}" th:name="'options[' + ${iterStat.index} + '].id'">
 				<input type="text" th:value="${option.optionText}"
 					th:name="'options[' + ${iterStat.index} + '].optionText'">
 				<input type="checkbox" th:checked="${option.isCorrect}" th:value="${option.isCorrect}"
-					th:name="'options[' + ${iterStat.index} + '].isCorrect'">
+					th:name="'options[' + ${iterStat.index} + '].correct'">
 			</div>
 		</div>
 
@@ -43,7 +46,7 @@
 		<textarea rows="5" cols="50" th:field="*{explain}" placeholder="解説を入力"></textarea>
 		<br>
 		<div th:if="${#fields.hasErrors('explain')}" th:errors="*{explain}" style="color: red;"></div>
-		<input th:if="${id}" type="hidden" th:field="*{id}">
+		<input th:if="${quizBookForm.id}" type="hidden" th:field="*{id}">
 		<input type="submit" th:value="${quizBookForm.newQuiz}?登録:更新">
 	</form>
 	<form th:action="@{/quizbook/back}" method="post">

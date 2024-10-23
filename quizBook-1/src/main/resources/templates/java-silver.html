@@ -8,20 +8,22 @@
 	<a th:href="@{/quizbook/play}">一問一答モード</a><br>
 	<a th:href="@{/quizbook/twenty-test}">20問連続モード</a><br>
 	<a th:href="@{/quizbook/test}">模擬試験モード</a><br>
+	<form th:action="@{/quizbook/back}" method="post">
+		<button type="submit">ホームへ戻る</button>
+	</form>
 	<hr>
 	
 	<p th:if="${#lists.isEmpty(list)}">登録されているクイズはありません</p>
 	<table border="1" th:unless="${#lists.isEmpty(list)}" style="table-layout: fixed;">
 			<tr>
 				<th>ID</th>
-				<th>内容</th>
-				<th>解答</th>
-				<th>作成者</th>
+				<th>問題</th>
+				<th>コード</th>
 				<th>編集</th>
 				<th>削除</th>
 			</tr>
-			<tr th:each="obj:${list}" align="center">
-				<td th:text="${obj.id}"></td>
+			<tr th:each="obj,state:${list}" align="center">
+				<td th:text="${state.index+1}"></td>
 				<td th:text="${obj.question}" align="left"></td>
 
 				<!--/*編集ボタン*/-->

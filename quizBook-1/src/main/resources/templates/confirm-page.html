@@ -9,14 +9,19 @@
 <body>
 	<div th:text="${msg}" style="color: cadetblue;margin: 10px;"></div>
 	<div style="display: flex;">
-		<form th:action="@{/quizbook/update-page/{id}(id=${entity.id})}" method="get" style="margin: 10px;">
+<!--		<form th:action="@{/quizbook/update-page/{id}(id=${entity.id})}" method="get" style="margin: 10px;">-->
+<!--			<button type="submit">登録内容修正</button>-->
+<!--		</form>-->
+		<form th:action="@{/quizbook/update-page}" method="post">
+			<input type="hidden" th:value="${entity.id}" name="id">
 			<button type="submit">登録内容修正</button>
 		</form>
-		<form th:action="@{/quizbook/back}" style="margin: 10px;">
+		<form th:action="@{/quizbook/back}" method="post" style="margin: 10px;">
 			<button type="submit">ホームに戻る</button>
 		</form>
 	</div>
 	<hr>
+	<h2 th:text="'Quiz No.' + ${entity.id}"></h2>
 
 	<div th:object="${entity}">
 		<h3>問題：</h3>
