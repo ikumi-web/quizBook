@@ -13,5 +13,8 @@ public interface QuizBookRepository extends JpaRepository<QuizBookEntity,Integer
 	
 	@Query("SELECT q FROM QuizBookEntity q ORDER BY RANDOM() limit 1")
 	Optional<QuizBookEntity> findByRandomId();
+	
+	@Query("SELECT q FROM QuizBookEntity q ORDER BY insertTime DESC")
+	Iterable<QuizBookEntity> findAllDescInsertTime();
 
 }

@@ -9,6 +9,8 @@ public interface QuizBookService {
 	
 	/** クイズ情報を全件取得します　*/
 	Iterable<QuizBookEntity> selectAll();
+	/** クイズ情報をinsertTImeの昇順にして全件取得します　*/
+	Iterable<QuizBookEntity> selectAllDescInsertTime();
 	/** クイズ情報をidをキーに取得します　*/
 	Optional<QuizBookEntity> selectOneById(Integer id);
 	/** クイズ情報をランダムで1件取得します　*/

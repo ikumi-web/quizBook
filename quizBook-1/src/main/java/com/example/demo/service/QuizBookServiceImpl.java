@@ -18,6 +18,10 @@ public class QuizBookServiceImpl implements QuizBookService{
 	public Iterable<QuizBookEntity> selectAll() {
 		return quizBookRepository.findAll();
 	}
+	@Override
+	public Iterable<QuizBookEntity> selectAllDescInsertTime(){
+		return quizBookRepository.findAllDescInsertTime();
+	}
 
 	@Override
 	public Optional<QuizBookEntity> selectOneById(Integer id) {
