@@ -4,19 +4,38 @@
 <head>
 	<meta charset="UTF-8">
 	<script th:src="@{/list.js}" defer></script>
+	<link rel="stylesheet" th:href="@{/javasilver-style.css}">
+	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
 	<title th:text="${title}">タイトル</title>
 </head>
 
 <body>
-	<div class="mainContainer" style="margin: 10px 0 20px 10px;">
+	<div class="mainContainer">
 		<h2 th:text="${title}">見出し</h2>
-
-		<a th:href="@{/quizbook/play}">一問一答モード</a><br>
-		<a th:href="@{/quizbook/twenty-test}">20問連続モード</a><br>
-		<a th:href="@{/quizbook/test}">模擬試験モード</a><br>
-		<form th:action="@{/quizbook/back}" method="post">
-			<button type="submit">ホームへ戻る</button>
-		</form>
+		<div id="quizContainer">
+			<form th:action="@{/quizbook/play}" method="post">
+				<button class="quiz-play" id="questionAndAnswer" type="submit">一問一答</button>
+			</form>
+			<form th:action="@{/quizbook/twenty-test}">
+				<button class="quiz-play" id="test-twenty">20問連続モード</button>
+			</form>
+			
+			<form th:action="@{/quizbook/test}">
+				<button class="quiz-play" type="submit">模擬試験モード</button>
+			</form>
+		</div>
+		<div class="buttonContainer">
+			<form id="new-button" th:action="@{/quizbook/quiz-register}" method="get">
+				<input type="submit" value="問題新規登録">
+			</form>
+			<form th:action="@{/quizbook/back}" method="post">
+				<input type="submit" value="ホームに戻る">
+			</form>
+		</div>
 		<hr>
 
 		<p th:if="${#lists.isEmpty(list)}">登録されているクイズはありません</p>
@@ -33,7 +52,7 @@
 				<td th:text="${state.index+1}"></td>
 				<td th:text="${obj.question}" align="left" class="question"></td>
 				<td th:text="${obj.code}" align="left" class="code"></td>
-				
+
 				<!--/*確認ボタン*/-->
 				<td>
 					<form method="post" th:action="@{/quizbook/confirm-page}">

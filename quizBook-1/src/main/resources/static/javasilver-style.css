@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+.mainContainer{
+	margin: 10px 0 20px 10px;
+}
+h2{
+	text-align: center;
+	background-color: rgb(28, 30, 34);
+	color: white;
+	font-size: 50px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+#quizContainer{
+	display: flex;
+	justify-content: space-around;
+}
+
+.quiz-play {
+	border: solid 1px;
+	border-radius: 10px;
+	background-color: rgb(141, 186, 254);
+	height: 50px;
+	width: 200px;
+	line-height: 50px;
+	/* 高さと同じ値を指定 */
+	text-align: center;
+	
+	
+	font-size: 24px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+.buttonContainer{
+	display: flex;
+	margin-top: 10px;
+}
+#new-button{
+	margin-right: 10px;
+}

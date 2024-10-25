@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.QuizBookEntity;
@@ -18,7 +18,7 @@ public class QuizBookPlayController {
 	@Autowired
 	private QuizBookService quizBookService;
 	
-	@GetMapping("/play")
+	@PostMapping("/play")
 	public String play(Model model) {
 		Optional<QuizBookEntity> OptEntity = quizBookService.selectRamdomQuiz();
 		if(!OptEntity.isPresent()) {
@@ -28,7 +28,7 @@ public class QuizBookPlayController {
 		QuizBookEntity entity = OptEntity.get();
 		model.addAttribute("title","一問一答モード");
 		model.addAttribute("entity",entity);
-		return "play";
+		return "javaSilver/play/play";
 	}
 
 }
