@@ -54,8 +54,8 @@
 				<td>
 					<form method="get" th:action="@{/quizbook/delete}">
 						<input type="hidden" name="id" th:value="${obj.id}">
-						<button type="button" onclick="if(confirm('選択した問題を削除しますか？'))
-																{this.form.submit();}">削除</button>
+						<input type="button" onclick="if(confirm('選択した問題を削除しますか？'))
+																{this.form.submit();}" value="削除">
 					</form>
 				</td>
 			</tr>

@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 	const question = document.querySelectorAll('.question');
-	const limit = 15; // 半角9文字指定
+	const limit = 10; // 半角9文字指定
 
 	question.forEach(function(question) {
 		const str = question.textContent;
