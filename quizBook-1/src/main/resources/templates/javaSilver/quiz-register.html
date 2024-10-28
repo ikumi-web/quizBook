@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<script th:src="@{/option.js}" defer></script>
+	<script th:src="@{/js/option.js}" defer></script>
 	<title th:text="${title}">タイトル</title>
 </head>
 
@@ -39,8 +39,7 @@
 					<input type="text" th:value="${option.optionText}"
 						th:name="'options[' + ${iterStat.index} + '].optionText'">
 					<button type="button" class="preRemoveButton">削除</button>
-					<input type="checkbox" th:checked="${option.isCorrect}" th:value="${option.isCorrect}"
-						th:name="'options[' + ${iterStat.index} + '].correct'">
+					<input type="checkbox" th:checked="${option.isCorrect}" th:name="'options[' + ${iterStat.index} + '].correct'">
 				</div>
 			</div>
 

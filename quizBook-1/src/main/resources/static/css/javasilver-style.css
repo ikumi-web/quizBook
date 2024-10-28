@@ -36,6 +36,9 @@ h2{
 	font-weight: 400;
 	font-style: normal;
 }
+.quiz-play:hover{
+	background-color: bisque;
+}
 .buttonContainer{
 	display: flex;
 	margin-top: 10px;

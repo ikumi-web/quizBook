@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/answer.css}">
+	<title>一問一答モード</title>
+</head>
+
+<body>
+	<div class="mainContainer">
+		
+		<h3 class="answer" th:text="${answer}">答え</h3>
+		<p id="mySelectAnswer" th:text="|あなたが選んだ解答：${mySelectOption.optionText}|">自分の選んだ解答</p>
+		<form th:action="@{/quizbook/play}" method="post" id="nextQuizButton">
+			<button type="submit">次の問題</button>
+		</form>
+		
+		<div th:object="${entity}" id="quizContainer">
+			<div th:text="*{question}"></div>
+			<pre th:text="*{code}"></pre>
+			<div th:each="option,state:*{options}" class="optionContainer">
+				<span th:text="|選択肢${state.count}：${option.optionText}|"></span>
+				<span th:if="!${mySelectOption.correct} and ${mySelectOption.optionText}==${option.optionText}"
+						id="answer-icon-batu" th:text="'✕'"></span>
+				<span th:if="${option.correct}" id="answer-icon-maru" th:text="〇"></span>
+			</div>
+			<div th:text="*{explain}"></div>
+		</div>
+	</div>
+</body>
+
+</html>

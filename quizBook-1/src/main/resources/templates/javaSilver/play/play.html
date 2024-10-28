@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>一問一答モード</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/play.css}">
+	<title>一問一答モード</title>
 </head>
+
 <body>
-	<h1 th:text="${title}" align="center">タイトル</h1><hr>
-	
+	<h1 th:text="${title}" align="center">タイトル</h1>
+	<form th:action="@{/quizbook/java-silver}" method="get" style="margin: 10px;">
+		<button>Java-Silver問題一覧</button>
+	</form>
+	<hr>
+
 	<div th:object="${entity}">
-		
+
 		<div th:text="*{question}"></div>
 		<pre th:text="*{code}"></pre>
-		<div th:each="option,state:*{options}">
-			<span th:text="|選択肢${state.index+1}：|"></span>
-			<button  type="button" th:text="${option.optionText}" class="optionButton" style="width: 400px;margin:10px"></button>
-			
-				
+		<div th:each="option,state:*{options}" class="optionContainer">
+				<p th:text="|選択肢${state.count}：|"></p>
+				<form th:action="@{/quizbook/check-quiz}" method="post">
+					<input type="hidden" th:value="*{id}" name="id">
+					<input type="hidden" th:value="${option.id}" name="optionId">
+					<button type="submit" th:text="${option.optionText}" class="optionButton"></button>
+				</form>
+
 		</div>
-		
-		
+
+
 	</div>
 
 </body>
+
 </html>

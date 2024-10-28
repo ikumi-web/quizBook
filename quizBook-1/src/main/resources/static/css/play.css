@@ -1,0 +1,11 @@
+
+
+.optionContainer{
+	display: flex;
+	align-items: center;
+}
+
+.optionButton{
+	width: 400px;
+	
+}
