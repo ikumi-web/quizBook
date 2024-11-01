@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<script th:src="@{/js/list.js}" defer></script>
+	<script th:src="@{/js/java-silver.js}" defer></script>
 	<link rel="stylesheet" th:href="@{/css/javasilver-style.css}">
 	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,15 @@
 
 <body>
 	<div class="mainContainer">
-		<h2 th:text="${title}">見出し</h2>
+		<div class="menu">
+			<button class="humberger-icon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+		<h2>JavaSilver問題集</h2>
+		<p class="errorMassage" th:text="${msg}"></p>
 		<div id="quizContainer">
 			<form th:action="@{/quizbook/play}" method="post">
 				<button class="quiz-play" id="questionAndAnswer" type="submit">一問一答</button>
@@ -39,7 +47,7 @@
 		<hr>
 
 		<p th:if="${#lists.isEmpty(list)}">登録されているクイズはありません</p>
-		<table border="1" th:unless="${#lists.isEmpty(list)}" style="table-layout: fixed;">
+		<table border="1" th:unless="${#lists.isEmpty(list)}" style="table-layout: fixed;" class="detaTable">
 			<tr style="background-color: aqua;">
 				<th>ID</th>
 				<th>問題</th>

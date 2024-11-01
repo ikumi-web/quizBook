@@ -3,6 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/confirm.css}">
 	<title>確認ページ</title>
 </head>
 
@@ -31,7 +32,7 @@
 		<h3 th:if="${listId != null}" th:text="'List No.'+${listId}"></h3>
 		<div th:object="${entity}">
 			<h3>問題：</h3>
-			<p th:text="*{question}"></p>
+			<div class="question" th:text="*{question}"></div>
 
 			<h3>コード：</h3>
 			<pre th:text="*{code}"></pre>

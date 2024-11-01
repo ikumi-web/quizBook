@@ -3,6 +3,43 @@
 .mainContainer{
 	margin: 10px 0 20px 10px;
 }
+/*▼▼▼▼▼▼▼▼ハンバーガーメニュー用▼▼▼▼▼▼▼▼*/
+.humberger-icon {
+  background-color: unset;
+  border: none;
+  outline: none !important;
+  cursor: pointer;
+}
+/*ハンバーガーメニューの棒たち*/
+.humberger-icon > span {
+  background-color: black;
+  width: 35px;
+  height: 2px;
+  display: block;
+  margin-bottom: 9px;
+  transition: transform 0.7s;
+}
+.humberger-icon > span:last-child {
+  margin-bottom: 0;
+}
+.menu-open .humberger-icon > span:nth-child(1) {
+  transition-delay: 70ms;
+  transform: translateY(11px) rotate(135deg);
+}
+.menu-open .humberger-icon > span:nth-child(2) {
+  transition-delay: 0s;
+  transform: translateX(-18px) scaleX(0);
+}
+.menu-open .humberger-icon > span:nth-child(3) {
+  transition-delay: 140ms;
+  transform: translateY(-11px) rotate(-135deg);
+}
+/*▲▲▲▲▲▲▲▲ハンバーガーメニュー用▲▲▲▲▲▲▲▲*/
+
+
+.errorMassage{
+	color: red;
+}
 h2{
 	text-align: center;
 	background-color: rgb(28, 30, 34);
@@ -45,4 +82,7 @@ h2{
 }
 #new-button{
 	margin-right: 10px;
+}
+.detaTable{
+	margin: auto;
 }

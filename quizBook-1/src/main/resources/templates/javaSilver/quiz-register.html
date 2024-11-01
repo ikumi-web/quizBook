@@ -21,9 +21,10 @@
 			th:object="${quizBookForm}">
 
 			<label>問題文：</label><br>
+			<div th:if="${#fields.hasErrors('question')}" th:errors="*{question}" style="color: red;"></div>
 			<textarea rows="5" cols="50" th:field="*{question}" placeholder="問題文を入力"></textarea>
 			<br>
-			<div th:if="${#fields.hasErrors('question')}" th:errors="*{question}" style="color: red;"></div>
+			
 
 			<label>コード：</label><br>
 			<textarea rows="5" cols="50" th:field="*{code}" placeholder="コードを入力"></textarea>
@@ -31,10 +32,15 @@
 			<div th:if="${#fields.hasErrors('code')}" th:errors="*{code}" style="color: red;"></div>
 
 			<div id="optionsContainer">
+				
 				<!-- 選択肢がここに追加されます -->
 				<div th:if="*{newQuiz}==false" th:each="option,iterStat:*{options}" class="option"
-					th:id="'option-'+${iterStat.index+1}">
-					<span th:text="'選択肢 '+${iterStat.index+1}+':'"></span>
+					th:id="'option-'+${iterStat.count}">
+					
+					<div th:if="${#fields.hasErrors('options[' + iterStat.index + '].optionText')}" 
+					th:text="空白はダメです" style="color: red;"></div>
+					
+					<span th:text="'選択肢 '+${iterStat.count}+':'"></span>
 					<input type="hidden" th:value="${option.id}" th:name="'options[' + ${iterStat.index} + '].id'">
 					<input type="text" th:value="${option.optionText}"
 						th:name="'options[' + ${iterStat.index} + '].optionText'">

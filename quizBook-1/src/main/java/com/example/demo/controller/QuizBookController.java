@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,8 +44,7 @@ public class QuizBookController {
 	}
 
 	@GetMapping("/quiz-register")
-	public String toRegister(Model model) {
-		QuizBookForm quizBookForm = new QuizBookForm();
+	public String toRegister(QuizBookForm quizBookForm, Model model) {
 		quizBookForm.setNewQuiz(true);
 		model.addAttribute("quizBookForm", quizBookForm);
 		model.addAttribute("title", "登録用フォーム");
@@ -57,7 +58,7 @@ public class QuizBookController {
 	}
 
 	@PostMapping("/insert")
-	public String insert(QuizBookForm form, Model model) {
+	public String insert(@Validated QuizBookForm form, BindingResult bindingResult, Model model) {
 		QuizBookEntity entity = new QuizBookEntity();
 		entity.setQuestion(form.getQuestion());
 		entity.setCode(form.getCode());
@@ -68,6 +69,9 @@ public class QuizBookController {
 			optionEntity.setOptionText(optionForm.getOptionText());
 			optionEntity.setCorrect(optionForm.isCorrect());
 			entity.addOption(optionEntity);
+		}
+		if (bindingResult.hasErrors()) {
+			return toRegister(form, model);
 		}
 		quizBookService.insert(entity);
 		model.addAttribute("msg", "登録完了しました");
@@ -92,7 +96,7 @@ public class QuizBookController {
 	//	}
 
 	@PostMapping("/update-page")
-	public String toUpdatePage(@RequestParam Integer id,@RequestParam(required = false) Integer listId,Model model) {
+	public String toUpdatePage(@RequestParam Integer id,@RequestParam(required = false) Integer listId, Model model) {
 		Optional<QuizBookEntity> OptEntity = quizBookService.selectOneById(id);
 		if (OptEntity.isPresent()) {
 			QuizBookEntity entity = OptEntity.get();
@@ -107,11 +111,24 @@ public class QuizBookController {
 		return "javaSilver/confirm-page";
 
 	}
+	//Validation用の更新ページ作成メソッド
+	public String toUpdatePageRedirect(QuizBookForm form, @RequestParam Integer id,
+			@RequestParam(required = false) Integer listId, Model model) {
+			form.setNewQuiz(false);
+			model.addAttribute("listId", listId);
+			model.addAttribute("quizBookForm", form);
+			model.addAttribute("title", "更新用フォーム");
+			return "javaSilver/quiz-register";
+	}
 
 	@PostMapping("/update")
-	public String update(QuizBookForm form, Model model,@RequestParam(required = false) Integer listId) {
+	public String update(@Validated QuizBookForm form, BindingResult bindingResult,
+			@RequestParam(required = false) Integer listId, Model model) {
 		QuizBookEntity entity = makeEntity(form);
 		entity.setInsertTime(new Timestamp(System.currentTimeMillis()));
+		if (bindingResult.hasErrors()) {
+			return toUpdatePageRedirect(form, form.getId(), listId, model);
+		}
 		quizBookService.update(entity);
 		model.addAttribute("listId", listId);
 		model.addAttribute("entity", entity);
@@ -119,24 +136,25 @@ public class QuizBookController {
 		return "javaSilver/confirm-page";
 
 	}
+
 	@PostMapping("/confirm-page")
-	public String confirm(@RequestParam Integer id,@RequestParam(required = false) Integer listId,Model model) {
+	public String confirm(@RequestParam Integer id, @RequestParam(required = false) Integer listId, Model model) {
 		Optional<QuizBookEntity> OptEntity = quizBookService.selectOneById(id);
-		if(!OptEntity.isPresent()) {
+		if (!OptEntity.isPresent()) {
 			return "forward:/quizbook/java-silver";
 		}
 		QuizBookEntity entity = OptEntity.get();
-		model.addAttribute("entity",entity);
-		model.addAttribute("listId",listId);
+		model.addAttribute("entity", entity);
+		model.addAttribute("listId", listId);
 		return "javaSilver/confirm-page";
-		
+
 	}
-	
+
 	@GetMapping("/delete")
 	public String delete(@RequestParam Integer id) {
 		quizBookService.deleteQuizById(id);
 		return "forward:/quizbook/java-silver";
-		
+
 	}
 
 	//▼▼▼▼▼▼▼▼EntityからFormへの変換▼▼▼▼▼▼▼▼

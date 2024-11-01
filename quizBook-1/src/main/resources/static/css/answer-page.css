@@ -1,3 +1,6 @@
+.mainContainer{
+	margin:10px;
+}
 /*▼▼▼▼▼▼▼▼ハンバーガーメニュー用▼▼▼▼▼▼▼▼*/
 .humberger-icon {
   background-color: unset;
@@ -31,8 +34,7 @@
 }
 /*▲▲▲▲▲▲▲▲ハンバーガーメニュー用▲▲▲▲▲▲▲▲*/
 
-
-h1{
+h2{
 	text-align: center;
 	background-color: rgb(28, 30, 34);
 	color: white;
@@ -42,19 +44,33 @@ h1{
 	font-weight: 400;
 	font-style: normal;
 }
-a{text-decoration: none;}
-
-.optionContainer{
-	display: flex;
-	align-items: center;
+a{
+	text-decoration: none; /* 下線を消去 */
 }
-
-.optionButton{
-	width: 400px;
+.answer{
+	font-size: 2em;
+	text-align: center;
+	color: brown;
 }
-.push-optionButton{
-	background-color: aqua;
+#nextQuizButton{
+	text-align: center;
 }
-
-
-
+.mySelectAnswer{
+	text-align: center;
+	color: deeppink;
+}
+#answer-icon-maru{
+	color: yellowgreen;
+}
+#answer-icon-batu{
+	color: red;
+}
+#quizContainer{
+	width: 70%;
+	margin:0 auto;
+}
+.footer{
+	text-align: center;
+/*	↓フッターのマージンはなんとなく感覚が欲しいだけ*/
+	margin: 50px;
+}

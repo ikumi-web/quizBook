@@ -3,30 +3,56 @@
 
 <head>
 	<meta charset="UTF-8">
+	<script th:src="@{/js/play.js}"></script>
 	<link rel="stylesheet" th:href="@{/css/play.css}">
+	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
 	<title>一問一答モード</title>
 </head>
 
 <body>
-	<h1 th:text="${title}" align="center">タイトル</h1>
-	<form th:action="@{/quizbook/java-silver}" method="get" style="margin: 10px;">
-		<button>Java-Silver問題一覧</button>
-	</form>
+	<div class="menu">
+		<button class="humberger-icon">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+	</div>
+	<a th:href="@{/quizbook/java-silver}">
+		<h1 th:text="${title}">タイトル</h1>
+	</a>
 	<hr>
 
 	<div th:object="${entity}">
 
 		<div th:text="*{question}"></div>
 		<pre th:text="*{code}"></pre>
+		<!--		▼▼▼▼▼▼▼▼普通の一問一答時▼▼▼▼▼▼▼▼-->
+		<!--		<div th:each="option,state:*{options}" class="optionContainer">-->
+		<!--				<p th:text="|選択肢${state.count}：|"></p>-->
+		<!--				<form th:action="@{/quizbook/check-quiz}" method="post" th:id="|form-${state.count}|">-->
+		<!--					<input type="hidden" th:value="*{id}" name="id">-->
+		<!--					<input type="hidden" th:value="${option.id}" name="optionId">-->
+		<!--					<button type="submit" th:text="${option.optionText}" class="optionButton"></button>-->
+		<!--				</form>-->
+		<!--		</div>-->
+		<!--		▲▲▲▲▲▲▲▲普通の一問一答時▲▲▲▲▲▲▲▲-->
+		<!--		▼▼▼▼▼▼▼▼多肢選択の場合▼▼▼▼▼▼▼▼-->
 		<div th:each="option,state:*{options}" class="optionContainer">
-				<p th:text="|選択肢${state.count}：|"></p>
-				<form th:action="@{/quizbook/check-quiz}" method="post">
-					<input type="hidden" th:value="*{id}" name="id">
-					<input type="hidden" th:value="${option.id}" name="optionId">
-					<button type="submit" th:text="${option.optionText}" class="optionButton"></button>
-				</form>
-
+			<p th:text="|選択肢${state.count}：|"></p>
+			<div class="optionButtonContainer">
+				<input type="hidden" th:value="${option.id}" name="optionId" th:id="|optionId-${state.index}|">
+				<button type="button" th:text="${option.optionText}" class="optionButton"></button>
+			</div>
 		</div>
+		<form th:action="@{/quizbook/check-some-quiz}" method="post" id="submitButtonContainer" >
+			<input type="hidden" th:value="*{id}" name="id">
+			<button type="button" id="submitButton">解答</button>
+		</form>
+		<!--		▲▲▲▲▲▲▲▲多肢選択の場合▲▲▲▲▲▲▲▲-->
 
 
 	</div>

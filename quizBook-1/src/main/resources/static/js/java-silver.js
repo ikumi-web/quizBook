@@ -1,8 +1,15 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
+//	▼▼▼▼▼▼▼▼ハンバーガーメニュー用▼▼▼▼▼▼▼▼
+	const humbergerButton = document.querySelector('.menu');
+	humbergerButton.addEventListener('click',()=>{
+		humbergerButton.classList.toggle('menu-open');
+	});
+//	▲▲▲▲▲▲▲▲ハンバーガーメニュー用▲▲▲▲▲▲▲▲
+	
 	const question = document.querySelectorAll('.question');
-	const limit = 10; // 半角9文字指定
+	const limit = 15; // 半角9文字指定
 
 	question.forEach(function(question) {
 		const str = question.textContent;
