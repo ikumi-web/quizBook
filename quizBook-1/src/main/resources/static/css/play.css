@@ -44,6 +44,8 @@ h1{
 }
 a{text-decoration: none;}
 
+#correctCount{display: none;}
+
 .optionContainer{
 	display: flex;
 	align-items: center;
@@ -56,5 +58,9 @@ a{text-decoration: none;}
 	background-color: aqua;
 }
 
-
+.footer{
+	text-align: center;
+/*	↓フッターのマージンはなんとなく感覚が欲しいだけ*/
+	margin: 50px;
+}
 
