@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,42 +30,49 @@ public class QuizBookPlayController {
 	public String play(Model model) {
 		Optional<QuizBookEntity> OptEntity = quizBookService.selectRamdomQuiz();
 		if (!OptEntity.isPresent()) {
-			model.addAttribute("msg", "一問一答モードがうまく起動しませんでした。てへっ");
+			model.addAttribute("msg", "一問一答モードがうまく起動しませんでした。");
 			return "javaSilver/java-silver";
 		}
 		QuizBookEntity entity = OptEntity.get();
 		//選ばれた問題の正解の数を調べる
 		Integer correctCount = 0;
-		for(OptionEntity option : entity.getOptions()) {
-			if(option.isCorrect()) {
+		for (OptionEntity option : entity.getOptions()) {
+			if (option.isCorrect()) {
 				correctCount++;
 			}
 		}
-		model.addAttribute("correctCount",correctCount);
+		model.addAttribute("correctCount", correctCount);
 		model.addAttribute("title", "JavaSilver一問一答");
 		model.addAttribute("entity", entity);
 		return "javaSilver/play/play";
 	}
 
-//	@PostMapping("/check-quiz")
-//	public String checkQuiz(@RequestParam Integer id, @RequestParam Integer optionId, Model model) {
-//		Optional<QuizBookEntity> optEntity = quizBookService.selectOneById(id);
-//		Optional<OptionEntity> optOptionEntity = optionService.selectOneById(optionId);
-//		if ((!optOptionEntity.isPresent()) || (!optEntity.isPresent())) {
-//			model.addAttribute("msg", "選択肢の正誤判定にエラーが生じました。");
-//			return "javaSilver/java-silver";
-//		}
-//		QuizBookEntity entity = optEntity.get();
-//		OptionEntity mySelectOption = optOptionEntity.get();
-//		if (!mySelectOption.isCorrect()) {
-//			model.addAttribute("answer", "不正解です！！");
-//		} else {
-//			model.addAttribute("answer", "正解です！！");
-//		}
-//		model.addAttribute("entity", entity);
-//		model.addAttribute("mySelectOption", mySelectOption);
-//		return "javaSilver/play/answer-page";
-//	}
+	@PostMapping("/twenty-test")
+	public String twentyTest(Model model) {
+		model.addAttribute("title", "20問連続モード");
+		return "javaSilver/twentyTest/twenty-test";
+	}
+
+	@PostMapping("/twenty-test-play")
+	public String twentyTestPlay(@RequestParam String numberOfQuiz, @RequestParam String testTime) {
+		Integer limit = 0;
+		Integer limitTime = 0;
+		limit = Integer.parseInt(numberOfQuiz);
+		limitTime = Integer.parseInt(testTime);
+
+		Iterable<QuizBookEntity> list = quizBookService.selectByLimit(limit);
+		return "javaSilver/java-silver";
+		//		return "javaSilver/twentyTest/twenty-test-play";
+	}
+
+	@GetMapping("/search-quiz")
+	public String searchQuiz(@RequestParam String searchWord, Model model) {
+		Iterable<QuizBookEntity> list = quizBookService.selectSearchAllDescInsertTime(searchWord);
+		model.addAttribute("list", list);
+		model.addAttribute("title", "JavaSilver問題集");
+		return "javaSilver/java-silver";
+
+	}
 
 	@PostMapping("/check-quiz")
 	public String checkSomeQuiz(@RequestParam Integer id, @RequestParam List<Integer> optionId, Model model) {
@@ -86,12 +94,12 @@ public class QuizBookPlayController {
 			OptionEntity mySelectOption = optOptionEntity.get();
 			mySelectOptionAll.add(mySelectOption);
 		}
-		model.addAttribute("mySelectOptionAll",mySelectOptionAll);
+		model.addAttribute("mySelectOptionAll", mySelectOptionAll);
 		//全ての選択肢を調べて正誤判定
-		for(OptionEntity myOption : mySelectOptionAll) {
-			if(myOption.isCorrect()) {
+		for (OptionEntity myOption : mySelectOptionAll) {
+			if (myOption.isCorrect()) {
 				model.addAttribute("answer", "正解です！！");
-			}else {
+			} else {
 				model.addAttribute("answer", "不正解です！！");
 				break;
 			}

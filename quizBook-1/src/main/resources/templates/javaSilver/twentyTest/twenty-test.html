@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<!--	<script th:src="@{/js/twenty-test.js}" defer></script>-->
+	<link rel="stylesheet" th:href="@{/css/twenty-test.css}">
+	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Chokokutai&family=Sawarabi+Mincho&display=swap"
+		rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
+	<title th:text="${title}">タイトル</title>
+</head>
+
+<body>
+	<div id="mainContainer">
+		<div class="testFormContainer">
+			<form class="testForm" th:action="@{/quizbook/twenty-test-play}" method="post">
+				<div class="configureText">もんだいヲいくつトクの？</div>
+				<div>
+					<input type="text" name="numberOfQuiz" id="numberOfQuiz">問
+				</div>
+				<div class="configureText">じかんをせっていしてくだちい</div>
+				<div>
+					<input type="text" name="testTime" id="testTime">分
+				</div>
+				<button type="submit" id="submitButton" class="configureText">テストはじめ！</button>
+			</form>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

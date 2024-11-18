@@ -28,10 +28,10 @@
 			<form th:action="@{/quizbook/play}" method="post">
 				<button class="quiz-play" id="questionAndAnswer" type="submit">一問一答</button>
 			</form>
-			<form th:action="@{/quizbook/twenty-test}">
+			<form th:action="@{/quizbook/twenty-test}" method="post">
 				<button class="quiz-play" id="test-twenty">20問連続モード</button>
 			</form>
-			
+
 			<form th:action="@{/quizbook/test}">
 				<button class="quiz-play" type="submit">模擬試験モード</button>
 			</form>
@@ -45,7 +45,11 @@
 			</form>
 		</div>
 		<hr>
-
+		<form class="searchForm" th:action="@{/quizbook/search-quiz}" method="get">
+			<input type="text"  id="searchText" placeholder="フリーワードで検索" name="searchWord">
+			<input type="submit" value="検索" id="searchButton">
+		</form>
+<!--		▼▼▼▼▼▼▼▼以下クイズリスト▼▼▼▼▼▼▼▼-->
 		<p th:if="${#lists.isEmpty(list)}">登録されているクイズはありません</p>
 		<table border="1" th:unless="${#lists.isEmpty(list)}" style="table-layout: fixed;" class="detaTable">
 			<tr style="background-color: aqua;">

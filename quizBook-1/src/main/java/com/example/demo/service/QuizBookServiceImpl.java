@@ -22,6 +22,14 @@ public class QuizBookServiceImpl implements QuizBookService{
 	public Iterable<QuizBookEntity> selectAllDescInsertTime(){
 		return quizBookRepository.findAllDescInsertTime();
 	}
+	@Override
+	public Iterable<QuizBookEntity> selectSearchAllDescInsertTime(String searchWord){
+		return quizBookRepository.findSearchAllDescInsertTime(searchWord);
+	}
+	@Override
+	public Iterable<QuizBookEntity> selectByLimit(Integer limit){
+		return quizBookRepository.findByLimit(limit);
+	}
 
 	@Override
 	public Optional<QuizBookEntity> selectOneById(Integer id) {
