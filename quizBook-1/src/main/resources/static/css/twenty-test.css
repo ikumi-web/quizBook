@@ -8,11 +8,6 @@
 	width: 100%;
 }
 
-#numberOfQuiz {
-	margin-bottom: 10px;
-	text-align: right;
-}
-
 #testTime {
 	margin-bottom: 20px;
 	text-align: right;
@@ -22,11 +17,12 @@
 	border: solid 1px;
 	border-radius: 10px;
 	background-color: rgb(255, 179, 179);
-	height: 50px;
-	width: 200px;
+	height: 60px;
+	width: 250px;
 	line-height: 50px;
 	/* 高さと同じ値を指定 */
 	text-align: center;
+	margin:8px 8px 8px 8px;
 }
 #submitButton:hover{
 	background-color: rgb(250, 96, 44);
@@ -36,4 +32,26 @@
 	font-family: "Chokokutai", system-ui;
 	font-weight: 400;
 	font-style: normal;
+}
+.digit-selector{
+	display: flex;
+	
+}
+.digit-box{
+	display: flex;
+	flex-direction: column;
+	width: 60px;
+}
+.number-display{
+	text-align: center;
+}
+.unit-box{
+	display: flex;
+	align-items: center;
+}
+#unit-mon{
+	font-weight: bold;
+}
+#unit-minutes{
+	font-weight: bold;
 }

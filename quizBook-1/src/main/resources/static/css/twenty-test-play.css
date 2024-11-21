@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+#mainContainer {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+}
+#timeLimitText{
+	position:absolute;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	/*以下フォント用*/
+	font-family: "Sour Gummy", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 800;
+	font-style: normal;
+	font-variation-settings:
+		"wdth" 100;
+}
+
+.timer {
+	position: absolute;
+	position: fixed;
+	top: 30px;
+	right: 6px;
+	display: flex;
+	justify-content: center;
+	background-color: rgb(255, 128, 128);
+	border-radius: 8px;
+	height: 40px;
+	width: 70px;
+	align-items: center;
+
+	animation: timer 2s;
+
+}
+
+@keyframes timer {
+	0% {
+		width: 300px;
+		height: 250px;
+		font-size: 100px;
+	}
+	30%{
+		width: 300px;
+		height: 250px;
+		font-size: 100px;
+	}
+
+	100% {}
+}
+
+.minutes {
+	background-color: white;
+
+}
+
+#colon {
+	background-color: white;
+}
+
+.seconds {
+	background-color: white;
+}
+
+.message {
+	color: orangered;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 3em;
+	white-space: nowrap;
+	/* テキストが折り返さないように */
+	animation: message 5s linear forwards;
+	/*以下フォント用*/
+	font-family: "Sour Gummy", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 800;
+	font-style: normal;
+	font-variation-settings:
+		"wdth" 100;
+}
+
+@keyframes message {
+	0% {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.message-back {
+	background-color: yellow;
+	width: 100%;
+	/* 横いっぱいに広げる */
+	height: 2px;
+	/* 細長い線の高さを設定 */
+	position: absolute;
+	/* 必要に応じて絶対配置 */
+	top: 52%;
+	/* 画面の中央に配置（必要に応じて調整） */
+	left: 0;
+	transform: translateY(-50%);
+	/* 中央に配置（高さを基準に） */
+	animation: message-back 5s;
+}
+
+@keyframes message-back {
+	0% {
+		left: -100%;
+	}
+
+	25% {
+		height: 5px;
+	}
+
+	55% {
+		left: 0%
+	}
+
+	100% {
+		height: 6px;
+	}
+}

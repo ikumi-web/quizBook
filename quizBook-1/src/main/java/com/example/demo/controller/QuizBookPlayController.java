@@ -54,15 +54,23 @@ public class QuizBookPlayController {
 	}
 
 	@PostMapping("/twenty-test-play")
-	public String twentyTestPlay(@RequestParam String numberOfQuiz, @RequestParam String testTime) {
+	public String twentyTestPlay(Model model,@RequestParam String numberOfQuizOnes
+				,@RequestParam String numberOfQuizTens
+				,@RequestParam String numberOfQuizHunds
+				,@RequestParam String testTimeOnes
+				,@RequestParam String testTimeTens
+				,@RequestParam String testTimeHuns) {
 		Integer limit = 0;
 		Integer limitTime = 0;
-		limit = Integer.parseInt(numberOfQuiz);
-		limitTime = Integer.parseInt(testTime);
-
+		//100の位10の位1の位を連結してint型にする。
+		String quizCount = numberOfQuizHunds + numberOfQuizTens + numberOfQuizOnes;
+		String timeCount = testTimeHuns +testTimeTens + testTimeOnes;
+		limit = Integer.parseInt(quizCount);
+		limitTime = Integer.parseInt(timeCount);
 		Iterable<QuizBookEntity> list = quizBookService.selectByLimit(limit);
-		return "javaSilver/java-silver";
-		//		return "javaSilver/twentyTest/twenty-test-play";
+		model.addAttribute("limitTime",limitTime);
+		model.addAttribute("limit",limit);
+		return "javaSilver/twentyTest/twenty-test-play";
 	}
 
 	@GetMapping("/search-quiz")

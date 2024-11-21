@@ -3,20 +3,29 @@
 
 <head>
 	<meta charset="UTF-8">
-	<!--	<script th:src="@{/js/twenty-test-play.js}" defer></script>-->
-<!--	<link rel="stylesheet" th:href="@{/css/twenty-test-play.css}">-->
+	<script th:src="@{/js/twenty-test-play.js}" defer></script>
+	<link rel="stylesheet" th:href="@{/css/twenty-test-play.css}">
 	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Chokokutai&family=Sawarabi+Mincho&display=swap"
-		rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
 	<title th:text="${title}">タイトル</title>
 </head>
 
 <body>
 	<div id="mainContainer">
-		OK
+		<div id="timeLimitText">制限時間</div>
+		<div class="timer">
+			<div><span class="minutes" th:text="${limitTime}"></span></div>
+			<div id="colon">:</div>
+			<div><span class="seconds">00</span></div>
+		</div>
+		<div>
+			<p th:text="${limit}"></p>
+		</div>
+		<div class="message-back"></div>
+		<div class="message"></div>
 		
 	</div>
 
