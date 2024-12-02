@@ -18,6 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		messageBackDiv.style.display = 'none';
 	}, 5000);
 	//Are you Ready?Go!の文字表示▲▲▲▲▲▲▲▲
+	const quizDiv = document.querySelectorAll('.quizContainer');
+	setTimeout(()=>{
+		quizDiv.forEach((a)=>a.classList.remove('quizText'));
+	},5000);
 	const minutesElem = document.querySelector(".minutes");
 	const secondsElem = document.querySelector(".seconds");
 	let minutes = parseInt(minutesElem.textContent, 10);

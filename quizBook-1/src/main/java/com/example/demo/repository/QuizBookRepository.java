@@ -25,5 +25,9 @@ public interface QuizBookRepository extends JpaRepository<QuizBookEntity,Integer
 	
 	@Query("SELECT q FROM QuizBookEntity q ORDER BY RANDOM() limit :limit")
 	Iterable<QuizBookEntity> findByLimit(Integer limit);
+	
+//	@Query(value = "SELECT * FROM quizbookdb ORDER BY RAND() LIMIT :limit",nativeQuery = true)
+//	Page<QuizBookEntity> findByLimitPaging(@Param("limit")Integer limit,Pageable pageable);
+	
 
 }

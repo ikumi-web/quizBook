@@ -8,6 +8,9 @@
 	<a th:href="@{/quizbook/java-silver}">JavaSilver問題集</a>
 	<hr>
 	<a th:href="@{/quizbook/quiz-register}">問題登録</a>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="ログアウト">
+	</form>
 	
 </body>
 </html>

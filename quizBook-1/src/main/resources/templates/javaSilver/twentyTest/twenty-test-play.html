@@ -6,14 +6,19 @@
 	<script th:src="@{/js/twenty-test-play.js}" defer></script>
 	<link rel="stylesheet" th:href="@{/css/twenty-test-play.css}">
 	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+		rel="stylesheet">
 	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
 	<title th:text="${title}">タイトル</title>
 </head>
 
 <body>
+	<a th:href="@{/quizbook/java-silver}">
+		<h1 th:text="${title}">タイトル</h1>
+	</a>
 	<div id="mainContainer">
 		<div id="timeLimitText">制限時間</div>
 		<div class="timer">
@@ -22,11 +27,20 @@
 			<div><span class="seconds">00</span></div>
 		</div>
 		<div>
-			<p th:text="${limit}"></p>
+			<p th:text="|全${limit}問|"></p>
 		</div>
 		<div class="message-back"></div>
 		<div class="message"></div>
 		
+		<div class="subContainer">
+			<div th:each="quiz,status: ${list}" class="quizContainer quizText">
+				<div th:text="|第${status.count}問：${quiz.question}|">問題</div>
+				<pre th:text="${quiz.code}">コード</pre>
+				<div th:each="option,optionStatus: ${list[status.index].options}">
+					<span th:text="|選択肢${optionStatus.count}：${option.optionText}|"></span>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </body>

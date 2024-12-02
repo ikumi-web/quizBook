@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
 import com.example.demo.entity.QuizBookEntity;
 
 
@@ -13,6 +15,8 @@ public interface QuizBookService {
 	Iterable<QuizBookEntity> selectAllDescInsertTime();
 	/** クイズ情報を文字列をもとに検索しinsertTImeの昇順にして全件取得します　*/
 	Iterable<QuizBookEntity> selectSearchAllDescInsertTime(String searchWord);
+	/** 1ページに1件のデータを取り出す　*/
+	Page<QuizBookEntity> selectByLimitPaging(Integer limit);
 	/** クイズ情報をlimitの件数取得します　*/
 	Iterable<QuizBookEntity> selectByLimit(Integer limit);
 	/** クイズ情報をidをキーに取得します　*/

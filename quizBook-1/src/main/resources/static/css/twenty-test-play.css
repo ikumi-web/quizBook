@@ -1,15 +1,31 @@
 @charset "UTF-8";
 
+h1{
+
+	text-align: center;
+	background-color: rgb(28, 30, 34);
+	color: white;
+	font-size: 50px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 400;
+	font-style: normal;
+
+}
+
 #mainContainer {
 	position: relative;
 	width: 100%;
 	height: 100vh;
+	margin: 0 0 0 20px;
 }
+a{text-decoration: none;}
 #timeLimitText{
 	position:absolute;
 	position: fixed;
-	top: 10px;
+	top: 120px;
 	right: 10px;
+	color: rgb(255, 128, 128);
 	/*以下フォント用*/
 	font-family: "Sour Gummy", sans-serif;
 	font-optical-sizing: auto;
@@ -22,7 +38,7 @@
 .timer {
 	position: absolute;
 	position: fixed;
-	top: 30px;
+	top: 140px;
 	right: 6px;
 	display: flex;
 	justify-content: center;
@@ -129,4 +145,11 @@
 	100% {
 		height: 6px;
 	}
+}
+
+.quizText {
+	display: none;
+}
+.quizContainer{
+	margin-bottom: 20px;
 }

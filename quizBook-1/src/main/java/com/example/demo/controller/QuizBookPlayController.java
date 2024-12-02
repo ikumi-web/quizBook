@@ -47,7 +47,7 @@ public class QuizBookPlayController {
 		return "javaSilver/play/play";
 	}
 
-	@PostMapping("/twenty-test")
+	@PostMapping(value = "/twenty-test")
 	public String twentyTest(Model model) {
 		model.addAttribute("title", "20問連続モード");
 		return "javaSilver/twentyTest/twenty-test";
@@ -68,10 +68,13 @@ public class QuizBookPlayController {
 		limit = Integer.parseInt(quizCount);
 		limitTime = Integer.parseInt(timeCount);
 		Iterable<QuizBookEntity> list = quizBookService.selectByLimit(limit);
+		model.addAttribute("list",list);
 		model.addAttribute("limitTime",limitTime);
 		model.addAttribute("limit",limit);
+		model.addAttribute("title","JavaSilverテスト");
 		return "javaSilver/twentyTest/twenty-test-play";
 	}
+	
 
 	@GetMapping("/search-quiz")
 	public String searchQuiz(@RequestParam String searchWord, Model model) {
@@ -79,7 +82,6 @@ public class QuizBookPlayController {
 		model.addAttribute("list", list);
 		model.addAttribute("title", "JavaSilver問題集");
 		return "javaSilver/java-silver";
-
 	}
 
 	@PostMapping("/check-quiz")
