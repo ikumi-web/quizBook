@@ -29,12 +29,9 @@
 				<button class="quiz-play" id="questionAndAnswer" type="submit">一問一答</button>
 			</form>
 			<form th:action="@{/quizbook/twenty-test}" method="post">
-				<button class="quiz-play" id="test-twenty">20問連続モード</button>
+				<button class="quiz-play" id="test-twenty">テストモード</button>
 			</form>
 
-			<form th:action="@{/quizbook/test}">
-				<button class="quiz-play" type="submit">模擬試験モード</button>
-			</form>
 		</div>
 		<div class="buttonContainer">
 			<form id="new-button" th:action="@{/quizbook/quiz-register}" method="get">

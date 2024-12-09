@@ -31,17 +31,32 @@
 		</div>
 		<div class="message-back"></div>
 		<div class="message"></div>
-		
-		<div class="subContainer">
-			<div th:each="quiz,status: ${list}" class="quizContainer quizText">
+
+		<form class="submitContainer quizText" th:action="@{/quizbook/test-answer}" method="post">
+			<div th:each="quiz,status: ${list}" class="quizContainer">
+				<input type="hidden" name="id" th:value="${quiz.id}">
 				<div th:text="|第${status.count}問：${quiz.question}|">問題</div>
 				<pre th:text="${quiz.code}">コード</pre>
-				<div th:each="option,optionStatus: ${list[status.index].options}">
-					<span th:text="|選択肢${optionStatus.count}：${option.optionText}|"></span>
+				<!--				以下選択肢-->
+				<div th:each="option,optionStatus: ${list[status.index].options}" class="optionContainer">
+					<p th:text="|選択肢${optionStatus.count}：|"></p>
+					<div class="optionButtonContainer">
+						<input type="hidden" th:value="${option.id}" th:name="|optionId-${optionStatus.index}|">
+						<button type="button" th:text="${option.optionText}" class="optionButton"></button>
+					</div>
 				</div>
 			</div>
-		</div>
+			<div class="answer">
+				<div class="answer-timeup-text timeup-text">
+					<span>テスト終了です。</span><br>
+					<span>お疲れさまでした！</span>
+				</div>
+				<button type="button" id="answerButton">採点する</button>
+			</div>
+
+		</form>
 	</div>
+
 
 </body>
 

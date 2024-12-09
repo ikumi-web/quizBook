@@ -116,5 +116,48 @@ public class QuizBookPlayController {
 		}
 		return "javaSilver/play/answer-page";
 	}
+	@PostMapping("/test-answer")
+	public String testAnswer(Model model,@RequestParam List<Integer> id,@RequestParam List<Integer> optionId) {
+		List<QuizBookEntity> quizList = new ArrayList<>();
+		List<OptionEntity> selectOptionList = new ArrayList<>();
+		Double answerCount = 0.0;
+		Double correctAnswerCount = 0.0;
+		for(Integer quizId : id) {
+			Optional<QuizBookEntity> entityOpt = quizBookService.selectOneById(quizId);
+			if(entityOpt.isPresent()) {
+				QuizBookEntity entity = entityOpt.get();
+				quizList.add(entity);
+			}else {
+				throw new NullPointerException("QuizBookEntity:"+quizId+"が見つかりません");
+			}
+		}
+		for(Integer optionIds : optionId) {
+			Optional<OptionEntity> optionEntityOpt = optionService.selectOneById(optionIds);
+			if(optionEntityOpt.isPresent()) {
+				OptionEntity optionEntity = optionEntityOpt.get();
+				selectOptionList.add(optionEntity);
+			}else {
+				throw new NullPointerException("OptionEntity:"+optionId+"が見つかりません");
+			}
+		}
+		for(OptionEntity option : selectOptionList) {
+			if(option.isCorrect()) {
+				correctAnswerCount++;
+			}
+		}
+		for(QuizBookEntity quiz : quizList) {
+			for(OptionEntity option : quiz.getOptions()) {
+				if(option.isCorrect()) {
+					answerCount++;
+				}
+			}
+		}
+		Integer correctAnswerRate = (int)(correctAnswerCount / answerCount*100);
+		model.addAttribute("selectOptionList",selectOptionList);
+		model.addAttribute("correctAnswerRate",correctAnswerRate);
+		model.addAttribute("quizList",quizList);
+		model.addAttribute("title","テスト答え合わせ");
+		return "javaSilver/twentyTest/test-answer-page";
+	}
 
 }

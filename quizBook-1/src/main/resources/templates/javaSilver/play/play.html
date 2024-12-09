@@ -31,17 +31,6 @@
 
 		<div th:text="*{question}"></div>
 		<pre th:text="*{code}"></pre>
-		<!--		▼▼▼▼▼▼▼▼普通の一問一答時▼▼▼▼▼▼▼▼-->
-		<!--		<div th:each="option,state:*{options}" class="optionContainer">-->
-		<!--				<p th:text="|選択肢${state.count}：|"></p>-->
-		<!--				<form th:action="@{/quizbook/check-quiz}" method="post" th:id="|form-${state.count}|">-->
-		<!--					<input type="hidden" th:value="*{id}" name="id">-->
-		<!--					<input type="hidden" th:value="${option.id}" name="optionId">-->
-		<!--					<button type="submit" th:text="${option.optionText}" class="optionButton"></button>-->
-		<!--				</form>-->
-		<!--		</div>-->
-		<!--		▲▲▲▲▲▲▲▲普通の一問一答時▲▲▲▲▲▲▲▲-->
-		<!--		▼▼▼▼▼▼▼▼多肢選択の場合▼▼▼▼▼▼▼▼-->
 		<div th:each="option,state:*{options}" class="optionContainer">
 			<p th:text="|選択肢${state.count}：|"></p>
 			<div class="optionButtonContainer">
@@ -53,7 +42,6 @@
 			<input type="hidden" th:value="*{id}" name="id">
 			<button type="button" id="submitButton">解答</button>
 		</form>
-		<!--		▲▲▲▲▲▲▲▲多肢選択の場合▲▲▲▲▲▲▲▲-->
 	</div>
 	
 	<div class="footer">Footer</div>

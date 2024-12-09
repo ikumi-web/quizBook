@@ -55,12 +55,12 @@ a{text-decoration: none;}
 	width: 400px;
 }
 .push-optionButton{
-	background-color: aqua;
+	background-color: rgb(141, 186, 254);
 }
 
 .footer{
 	text-align: center;
-/*	↓フッターのマージンはなんとなく感覚が欲しいだけ*/
+/*	↓フッターのマージンはなんとなく間隔が欲しいだけ*/
 	margin: 50px;
 }
 
