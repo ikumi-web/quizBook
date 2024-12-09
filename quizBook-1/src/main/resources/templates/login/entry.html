@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/entry.css}">
+		<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
+	<title th:text="${title}"></title>
+</head>
+
+<body>
+	<div class="entryContainer">
+		<form th:action="@{/quizbook/java-silver}" method="get">
+			<button class="entry" id="java-silver">JavaSilver問題集</button>
+		</form>
+		<form th:action="@{/quizbook/quiz-register}" method="get">
+			<button class="entry" id="questionAndAnswer" type="submit">問題登録</button>
+		</form>
+		<form th:action="@{/logout}" method="post">
+			<button class="entry" type="submit">ログアウト</button>
+		</form>
+	</div>
+
+</body>
+
+</html>

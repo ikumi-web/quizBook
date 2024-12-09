@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<script th:src="@{/js/answer-page.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/answer-page.css}">
+	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
+	<title>一問一答モード</title>
+</head>
+
+<body>
+	<div class="mainContainer">
+		<div class="menu">
+			<button class="humberger-icon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+
+		<a th:href="@{/quizbook/java-silver}">
+			<h2>JavaSilver一問一答</h2>
+		</a>
+
+		<h3 class="answer" th:text="${answer}">答え</h3>
+		<p class="mySelectAnswer">あなたが選んだ解答：</p>
+		<div class="mySelectAnswer" th:each="mySelectOption:${mySelectOptionAll}">
+			<p th:text="${mySelectOption.optionText}"></p>
+		</div>
+
+		<form th:action="@{/quizbook/play}" method="post" id="nextQuizButton">
+			<button type="submit">次の問題→</button>
+		</form>
+
+		<div th:object="${entity}" id="quizContainer">
+			<div th:text="*{question}"></div>
+			<pre th:text="*{code}"></pre>
+				<div th:each="option,state:*{options}" class="optionContainer">
+					<span th:text="|選択肢${state.count}：${option.optionText}|"th:style="${option.correct} ? 'color: red;' : 'color: black;'"></span>
+					<span th:each="mySelectOption:${mySelectOptionAll}">
+						<span th:if="!${mySelectOption.correct} and ${mySelectOption.optionText}==${option.optionText}"
+							id="answer-icon-batu" th:text="'✕'"></span>
+						<span th:if="${mySelectOption.correct} and ${mySelectOption.optionText}==${option.optionText}"
+							id="answer-icon-maru" th:text="'〇'"></span>
+					</span>
+				</div>
+			<h2>解説</h2>
+				<div th:text="*{explain}"></div>
+		</div>
+
+		<div class="footer">Footer</div>
+</body>
+
+</html>

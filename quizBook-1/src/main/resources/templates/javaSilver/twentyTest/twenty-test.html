@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+		<script th:src="@{/js/twenty-test.js}" defer></script>
+	<link rel="stylesheet" th:href="@{/css/twenty-test.css}">
+	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Chokokutai&family=Sawarabi+Mincho&display=swap"
+		rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
+	<title th:text="${title}">タイトル</title>
+</head>
+
+<body>
+	<div id="mainContainer">
+		<div class="testFormContainer">
+			<form class="testForm" th:action="@{/quizbook/twenty-test-play}" method="post">
+				<div class="configureText">もんだいヲいくつトクの？</div>
+				<div class="digit-selector">
+					<div class="digit-box">
+						<button type="button" class="digit-button-quiz increase" data-index="0">▲</button>
+						<input class="number-display" id="digit-0" type="text" name="numberOfQuizHunds" value="0" readonly>
+						<button type="button" class="digit-button-quiz decrease" data-index="0">▼</button>
+					</div>
+					<div class="digit-box">
+						<button type="button" class="digit-button-quiz increase" data-index="1">▲</button>
+						<input class="number-display" id="digit-1" type="text" name="numberOfQuizTens" value="0" readonly>
+						<button type="button" class="digit-button-quiz decrease" data-index="1">▼</button>
+					</div>
+					<div class="digit-box">
+						<button type="button" class="digit-button-quiz increase" data-index="2">▲</button>
+						<input class="number-display" id="digit-2" type="text" name="numberOfQuizOnes" value="0" readonly>
+						<button type="button" class="digit-button-quiz decrease" data-index="2">▼</button>
+					</div>
+					<div class="unit-box">
+						<div id="unit-mon">問</div>
+					</div>
+				</div>
+				<div class="configureText">じかんをせっていしてくだちい</div>
+				<div class="digit-selector">
+					<div class="digit-box">
+						<button type="button" class="digit-button-time increase" data-index="0">▲</button>
+						<input class="number-display" id="digit-time-0" type="text" name="testTimeHuns" value="0" readonly>
+						<button type="button" class="digit-button-time decrease" data-index="0">▼</button>
+					</div>
+					<div class="digit-box">
+						<button type="button" class="digit-button-time increase" data-index="1">▲</button>
+						<input class="number-display" id="digit-time-1" type="text" name="testTimeTens" value="0" readonly>
+						<button type="button" class="digit-button-time decrease" data-index="1">▼</button>
+					</div>
+					<div class="digit-box">
+						<button type="button" class="digit-button-time increase" data-index="2">▲</button>
+						<input class="number-display" id="digit-time-2" type="text" name="testTimeOnes" value="0" readonly>
+						<button type="button" class="digit-button-time decrease" data-index="2">▼</button>
+					</div>
+					<div class="unit-box">
+						<div id="unit-minutes">分</div>
+					</div>
+				</div>
+				<button type="submit" id="submitButton" class="configureText">テストはじめ！</button>
+			</form>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

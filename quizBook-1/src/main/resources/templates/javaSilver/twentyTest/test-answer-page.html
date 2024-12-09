@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<script th:src="@{/js/test-answer-page.js}" defer></script>
+	<link rel="stylesheet" th:href="@{/css/test-answer-page.css}">
+	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+		rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
+	<title th:text="${title}">タイトル</title>
+</head>
+
+<body>
+	<a th:href="@{/quizbook/java-silver}">
+		<h1 th:text="${title}">タイトル</h1>
+	</a>
+	<div class="mainContainer">
+		<h3 class="message">お疲れ様です！！</h3>
+
+
+		<div class="percentage-label" th:text="|正答率${correctAnswerRate}%|" th:data-value="${correctAnswerRate}"></div>
+		<div class="progress-bar-container">
+			<div class="progress-bar" id="progress-bar"></div>
+		</div>
+
+		<div th:each="quiz,status : ${quizList}" class="quizContainer">
+			<div th:text="${quiz.question}"></div>
+			<pre th:text="${quiz.code}"></pre>
+			<div th:each="option,optionStatus : ${quizList[status.index].options}" class="optionContainer">
+				<p th:text="|選択肢${optionStatus.count}：|"></p>
+				<div th:text="${option.optionText}"></div>
+			</div>
+			<h2 class="explanation">解説</h2>
+			<div th:text="${quiz.explain}"></div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

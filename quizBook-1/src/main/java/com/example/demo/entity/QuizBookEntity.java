@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +43,8 @@ public class QuizBookEntity {
 		options.add(optionEntity);
 		optionEntity.setQuizBookEntity(this);
 	}
+	@Column(name="insert_time")
+	private Timestamp insertTime;
+	
 
 }

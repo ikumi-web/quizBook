@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<script th:src="@{/js/twenty-test-play.js}" defer></script>
+	<link rel="stylesheet" th:href="@{/css/twenty-test-play.css}">
+	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+		rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
+	<title th:text="${title}">タイトル</title>
+</head>
+
+<body>
+	<a th:href="@{/quizbook/java-silver}">
+		<h1 th:text="${title}">タイトル</h1>
+	</a>
+	<div id="mainContainer">
+		<div id="timeLimitText">制限時間</div>
+		<div class="timer">
+			<div><span class="minutes" th:text="${limitTime}"></span></div>
+			<div id="colon">:</div>
+			<div><span class="seconds">00</span></div>
+		</div>
+		<div>
+			<p th:text="|全${limit}問|"></p>
+		</div>
+		<div class="message-back"></div>
+		<div class="message"></div>
+
+		<form class="submitContainer quizText" th:action="@{/quizbook/test-answer}" method="post">
+			<div th:each="quiz,status: ${list}" class="quizContainer">
+				<input type="hidden" name="id" th:value="${quiz.id}">
+				<div th:text="|第${status.count}問：${quiz.question}|">問題</div>
+				<pre th:text="${quiz.code}">コード</pre>
+				<!--				以下選択肢-->
+				<div th:each="option,optionStatus: ${list[status.index].options}" class="optionContainer">
+					<p th:text="|選択肢${optionStatus.count}：|"></p>
+					<div class="optionButtonContainer">
+						<input type="hidden" th:value="${option.id}" th:name="|optionId-${optionStatus.index}|">
+						<button type="button" th:text="${option.optionText}" class="optionButton"></button>
+					</div>
+				</div>
+			</div>
+			<div class="answer">
+				<div class="answer-timeup-text timeup-text">
+					<span>テスト終了です。</span><br>
+					<span>お疲れさまでした！</span>
+				</div>
+				<button type="button" id="answerButton">採点する</button>
+			</div>
+
+		</form>
+	</div>
+
+
+</body>
+
+</html>

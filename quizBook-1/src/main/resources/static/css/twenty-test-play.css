@@ -1,0 +1,252 @@
+@charset "UTF-8";
+
+
+h1{
+
+	text-align: center;
+	background-color: rgb(28, 30, 34);
+	color: white;
+	font-size: 50px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 400;
+	font-style: normal;
+
+}
+
+#mainContainer {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	margin: 0 0 0 20px;
+}
+a{text-decoration: none;}
+#timeLimitText{
+	position:absolute;
+	position: fixed;
+	top: 120px;
+	right: 10px;
+	color: rgb(255, 128, 128);
+	/*以下フォント用*/
+	font-family: "Sour Gummy", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 800;
+	font-style: normal;
+	font-variation-settings:
+		"wdth" 100;
+}
+
+.timer {
+	position: absolute;
+	position: fixed;
+	top: 140px;
+	right: 6px;
+	display: flex;
+	justify-content: center;
+	background-color: rgb(255, 128, 128);
+	border-radius: 8px;
+	height: 40px;
+	width: 70px;
+	align-items: center;
+
+	animation: timer 2s;
+
+}
+
+@keyframes timer {
+	0% {
+		width: 300px;
+		height: 250px;
+		font-size: 100px;
+	}
+	30%{
+		width: 300px;
+		height: 250px;
+		font-size: 100px;
+	}
+
+	100% {}
+}
+
+.minutes {
+	background-color: white;
+
+}
+
+#colon {
+	background-color: white;
+}
+
+.seconds {
+	background-color: white;
+}
+
+.message {
+	color: orangered;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 3em;
+	white-space: nowrap;
+	/* テキストが折り返さないように */
+	animation: message 5s linear forwards;
+	/*以下フォント用*/
+	font-family: "Sour Gummy", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 800;
+	font-style: normal;
+	font-variation-settings:
+		"wdth" 100;
+}
+
+@keyframes message {
+	0% {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.message-back {
+	background-color: yellow;
+	width: 105%;
+	/* 横いっぱいに広げる */
+	height: 2px;
+	/* 細長い線の高さを設定 */
+	position: absolute;
+	/* 必要に応じて絶対配置 */
+	top: 52%;
+	/* 画面の中央に配置（必要に応じて調整） */
+	left: 0;
+	transform: translateY(-50%);
+	transform: translateX(-28px);
+	/* 中央に配置（高さを基準に） */
+	animation: message-back 5s;
+}
+
+@keyframes message-back {
+	0% {
+		left: -100%;
+	}
+
+	25% {
+		height: 5px;
+	}
+
+	55% {
+		left: -0%
+	}
+
+	100% {
+		height: 6px;
+	}
+}
+
+.quizText {
+	display: none;
+}
+.quizContainer{
+	margin-bottom: 20px;
+	padding: 8px;
+	background-color: antiquewhite;
+}
+.optionContainer{
+	display: flex;
+	align-items: center;
+}
+.optionButton{
+	width: 400px;
+}
+.answer{
+	text-align: center;
+}
+#answerButton{
+	border: solid 1px;
+	border-radius: 10px;
+	background-color: rgb(255, 179, 179);
+	height: 60px;
+	width: 400px;
+	line-height: 50px;
+/*	 高さと同じ値を指定 */
+	text-align: center;
+	margin:8px 8px 8px 8px;
+}
+#answerButton:hover{
+	background-color: rgb(250, 96, 44);
+}
+.answer-timeup {
+	position: absolute;
+	z-index: 2000;
+	top: 0;
+	left: 0;
+	height: 100vh;
+    width: 100vw;
+}
+.answer-timeup::before{
+	content: '';
+	opacity: 0.5;
+	position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* 必要に応じて他の要素の上に表示 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 浮いている効果 */
+    background-color: black; /* 背景色でボタンを目立たせる */
+    padding: 1rem; /* ボタンに適度な余白 */
+    border-radius: 8px; /* ボタンの角を丸くする */
+}
+.answer-timeup #answerButton {
+	position:absolute;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	
+    display: block;
+    width: 400px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    z-index: 2000;
+    background-color: #007bff;  
+    color: white;  
+    border-radius: 4px;
+}
+.answer-timeup #answerButton:hover{
+	background-color: rgb(134, 191, 255);
+}
+.timeup-text{
+	display: none;
+}
+.answer-timeup-text{
+	position: absolute;
+	position: fixed;
+	z-index: 1999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	height: 250px;
+	width: 500px;
+	border-radius: 4px;
+	background-color: white;
+	text-align: center;
+	padding: 32px;
+}
+.answer-timeup-text > span{
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+.push-optionButton{
+	background-color: rgb(250, 96, 44);
+}

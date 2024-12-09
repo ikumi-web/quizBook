@@ -3,6 +3,7 @@ package com.example.demo.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.Valid;
 import lombok.Data;
 
 
@@ -13,6 +14,7 @@ public class QuizBookForm {
 	private String question;
 	private String code;
 	private String explain;
+	@Valid
 	private List<OptionForm> options = new ArrayList<>();
 	private boolean newQuiz;
 	

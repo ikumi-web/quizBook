@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+.progress-bar-container {
+  width: 100%;  /*全体の幅を指定*/ 
+  height: 30px;  /*バーの高さ */ 
+  background-color: #e0e0e0;  /*背景色 */ 
+  border-radius: 15px;  /*丸みを追加 */ 
+  overflow: hidden;  /*子要素のはみ出しを隠す */ 
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;  /*初期幅 */
+  background-color: #4caf50;  
+  transition: width 2s ease;  
+}
+
+
+a{text-decoration: none;}
+h1{
+	text-align: center;
+	background-color: rgb(28, 30, 34);
+	color: white;
+	font-size: 50px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+.message{
+	text-align: center;
+	font-size: 40px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 320;
+	font-style: normal;
+}
+.percentage-label{
+	text-align: center;
+	font-size: 40px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 320;
+	font-style: normal;
+}
+.lowScore{
+	color: blue;
+}
+.hightScore{
+	color: red;
+}
+.progress-bar-container{
+	margin: 8px 0;
+}
+
+.quizContainer{
+	margin-bottom: 20px;
+	padding: 8px;
+	background-color: antiquewhite;
+}
+
+.optionContainer{
+	display: flex;
+	align-items: center;
+}
+.explanation{
+
+	text-align: center;
+	background-color: rgb(28, 30, 34);
+	color: white;
+	font-size: 32px;
+	font-weight: bold;
+	font-family: "Kiwi Maru", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+

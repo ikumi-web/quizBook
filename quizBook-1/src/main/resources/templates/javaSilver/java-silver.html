@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<script th:src="@{/js/java-silver.js}" defer></script>
+	<link rel="stylesheet" th:href="@{/css/javasilver-style.css}">
+	<!--▼▼▼▼▼▼▼▼フォント欄▼▼▼▼▼▼▼▼-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+	<!--▲▲▲▲▲▲▲▲フォント欄▲▲▲▲▲▲▲▲-->
+	<title th:text="${title}">タイトル</title>
+</head>
+
+<body>
+	<div class="mainContainer">
+		<div class="menu">
+			<button class="humberger-icon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+		<h2>JavaSilver問題集</h2>
+		<p class="errorMassage" th:text="${msg}"></p>
+		<div id="quizContainer">
+			<form th:action="@{/quizbook/play}" method="post">
+				<button class="quiz-play" id="questionAndAnswer" type="submit">一問一答</button>
+			</form>
+			<form th:action="@{/quizbook/twenty-test}" method="post">
+				<button class="quiz-play" id="test-twenty">テストモード</button>
+			</form>
+
+		</div>
+		<div class="buttonContainer">
+			<form id="new-button" th:action="@{/quizbook/quiz-register}" method="get">
+				<input type="submit" value="問題新規登録">
+			</form>
+			<form th:action="@{/quizbook/back}" method="post">
+				<input type="submit" value="ホームに戻る">
+			</form>
+		</div>
+		<hr>
+		<form class="searchForm" th:action="@{/quizbook/search-quiz}" method="get">
+			<input type="text"  id="searchText" placeholder="フリーワードで検索" name="searchWord">
+			<input type="submit" value="検索" id="searchButton">
+		</form>
+<!--		▼▼▼▼▼▼▼▼以下クイズリスト▼▼▼▼▼▼▼▼-->
+		<p th:if="${#lists.isEmpty(list)}">登録されているクイズはありません</p>
+		<table border="1" th:unless="${#lists.isEmpty(list)}" style="table-layout: fixed;" class="detaTable">
+			<tr style="background-color: aqua;">
+				<th>ID</th>
+				<th>問題</th>
+				<th>コード</th>
+				<th>確認</th>
+				<th>編集</th>
+				<th>削除</th>
+			</tr>
+			<tr th:each="obj,state:${list}" align="center">
+				<td th:text="${state.index+1}"></td>
+				<td th:text="${obj.question}" align="left" class="question"></td>
+				<td th:text="${obj.code}" align="left" class="code"></td>
+
+				<!--/*確認ボタン*/-->
+				<td>
+					<form method="post" th:action="@{/quizbook/confirm-page}">
+						<input type="hidden" name="listId" th:value="${state.index+1}">
+						<input type="hidden" name="id" th:value="${obj.id}">
+						<input type="submit" value="内容確認">
+					</form>
+				</td>
+
+				<!--/*編集ボタン*/-->
+				<td>
+					<form method="post" th:action="@{/quizbook/update-page}">
+						<input type="hidden" name="listId" th:value="${state.index+1}">
+						<input type="hidden" name="id" th:value="${obj.id}">
+						<input type="submit" value="編集">
+					</form>
+				</td>
+				<!--/*削除ボタン*/-->
+				<td>
+					<form method="get" th:action="@{/quizbook/delete}">
+						<input type="hidden" name="id" th:value="${obj.id}">
+						<input type="button" onclick="if(confirm('選択した問題を削除しますか？'))
+																{this.form.submit();}" value="削除">
+					</form>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+
+</html>
